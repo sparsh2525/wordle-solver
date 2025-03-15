@@ -22,7 +22,7 @@ const TutorialModal = ({ handleClose }: { handleClose: () => void }) => {
                             Use the keyboard {TutorialKeys.map((key, i) => <KeyboardKey demo letter={key} key={i} />)} to type in your guessed word.
                         </li>
                         <li>
-                            Long tap a key <KeyboardKey demo letter={{ value: 'W', status: 'black' }} /> to change status into <KeyboardKey demo letter={{ value: 'W', status: 'grey' }} /> if the word doesn't contain the letter.
+                            Long tap a key <KeyboardKey demo letter={{ value: 'W', status: 'black' }} /> to change status into <KeyboardKey demo letter={{ value: 'W', status: 'grey' }} /> if the word doesn&apos;t contain the letter.
                         </li>
                         <li>
                             <div className="inline-flex items-center">
