@@ -24,7 +24,7 @@ export const useAppState = (wordList: string[], length = 5) => {
           setWord(word.slice(0, word.length - 1));
           break;
       }
-      navigator.vibrate(100);
+      navigator.vibrate?.(100);
     } else if (word.length < length) {
       setWord([...word, key]);
     }
@@ -32,7 +32,7 @@ export const useAppState = (wordList: string[], length = 5) => {
 
   const handleLongKeyPress = (key: string) => {
     if (!letters[key]) return;
-    navigator.vibrate(100);
+    navigator.vibrate?.(100);
     setLetterState(key, letters[key].status === "grey" ? "black" : "grey");
   };
 
@@ -44,7 +44,7 @@ export const useAppState = (wordList: string[], length = 5) => {
 
   const handleStatusChange = (index: number) => {
     if (!word[index]) return;
-    navigator.vibrate(100);
+    navigator.vibrate?.(100);
     const nextStatus =
       status[(status.indexOf(letters[word[index]].status) + 1) % status.length];
     setLetterState(word[index], nextStatus);

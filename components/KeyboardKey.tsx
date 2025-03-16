@@ -17,10 +17,11 @@ const KeyboardKey: React.FC<KeyboardKeyProps> = ({ letter, onLongPressHandler, o
 
     return (
         <button
-            className={`m-[3px] h-12 rounded select-none active:brightness-150 transition-all
-                ${typeof letter === 'string' ? 'bg-slate-400 px-1' : ColourMapping[letter.status] + ' w-[30px] text-slate-200'}
-                ${demo ? 'scale-50 -m-1' : ''}
+            className={`m-[3px] rounded select-none-all active:brightness-150 transition-all
+                ${typeof letter === 'string' ? 'bg-slate-400 px-1' : ColourMapping[letter.status] + ` ${demo ? 'w-4' : 'w-[30px]'} text-slate-200`}
+                ${demo ? 'h-6 text-sm' : 'h-12'}
                 `}
+            unselectable='on'
             {...longPressEventHandlers}
         //onClick={() => onClickHandler && onClickHandler(letter.value)}
         >
