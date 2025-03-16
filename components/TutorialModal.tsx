@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import React from "react";
 import Heading from "./Heading";
 import KeyboardKey from "./KeyboardKey";
-import { ProfileLink, status, TutorialKeys } from "@/lib/constants";
+import { GithubLink, ProfileLink, status, TutorialKeys } from "@/lib/constants";
 import StatusButton from "./StatusButton";
 import LetterBox from "./LetterBox";
 
@@ -41,7 +41,7 @@ const TutorialModal = ({ handleClose }: { handleClose: () => void }) => {
                     <p className="text-xl">Good luck and have fun!</p>
                 </div>
                 <div className="self-center italic text-sm text-neutral-400">
-                    Created by <a href={ProfileLink} className="underline underline-offset-2 hover:text-slate-300">Sparsh Gupta</a>
+                    Created by <a target="_blank" href={ProfileLink} className="underline underline-offset-2 hover:text-slate-300">Sparsh Gupta</a> &bull; <a target="_blank" href={GithubLink} className="underline underline-offset-2 hover:text-slate-300">Code on GitHub</a>
                 </div>
             </Dialog>
         </Backdrop>

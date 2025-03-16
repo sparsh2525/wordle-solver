@@ -54,3 +54,5 @@ export const WordleHeading: LetterState[] = [
 export const TutorialKeys = [{value:'K',status:'black'},{value:'E',status:'black'},{value:'Y',status:'black'},{value:'S',status:'black'}] as LetterState[];
 
 export const ProfileLink = 'https://sparshgupta.vercel.app'
+
+export const GithubLink = 'https://github.com/sparsh2525/wordle-solver'
