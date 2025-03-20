@@ -1,6 +1,6 @@
 import React from 'react';
 import KeyboardKey from './KeyboardKey';
-import { keyboard, LetterState } from '@/lib/constants';
+import { keyboard } from '@/lib/constants';
 
 interface KeyboardProps {
     onClickHandler?: (letter: string) => void;

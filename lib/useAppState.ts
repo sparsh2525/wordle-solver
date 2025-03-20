@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { buildInitState, LetterState, status } from "./constants";
-import { parsingFn, range } from "./utils";
+import { parsingFn } from "./utils";
 
 export const useAppState = (wordList: string[], length = 5, guesses = 5) => {
   const [words, setWords] = useState<LetterState[][]>(
@@ -47,11 +47,11 @@ export const useAppState = (wordList: string[], length = 5, guesses = 5) => {
     setWordsState({ value: key, status: "black" }, index);
   };
 
-  const handleLongKeyPress = (key: string) => {
+  // const handleLongKeyPress = (key: string) => {
     // if (!letters[key]) return;
     // navigator.vibrate?.(100);
     // setLetterState(key, letters[key].status === "grey" ? "black" : "grey");
-  };
+  // };
 
   const handleStatusChange = (letter: LetterState, i: number, j: number) => {
     if(letter.value === "") return;

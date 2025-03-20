@@ -23,7 +23,7 @@ const variants = {
     }
 };
 
-export default function LetterBox({ letter, onClick, disabled, demo, animate = false }: LetterBoxProps) {
+export default function LetterBox({ letter, onClick, disabled, demo }: LetterBoxProps) {
     // const [animateBool, setAnimateBool] = React.useState(animate);
     // React.useEffect(() => {
     //     if (animate) {

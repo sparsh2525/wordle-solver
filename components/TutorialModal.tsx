@@ -1,10 +1,10 @@
-import { CloseIcon, HelpIcon, SwitchIcon } from "@/icons/icons";
+import { CloseIcon, HelpIcon } from "@/icons/icons";
 import { AnimatePresence, motion } from "framer-motion";
 import React from "react";
 import Heading from "./Heading";
 import KeyboardKey from "./KeyboardKey";
-import { GithubLink, ProfileLink, status, TutorialKeys } from "@/lib/constants";
-import StatusButton from "./StatusButton";
+import { GithubLink, ProfileLink, status } from "@/lib/constants";
+// import StatusButton from "./StatusButton";
 import LetterBox from "./LetterBox";
 
 const TutorialModal = ({ handleClose }: { handleClose: () => void }) => {

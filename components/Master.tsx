@@ -1,6 +1,4 @@
 'use client';
-
-import { RenderLimit } from "@/lib/constants";
 import WordRow from "./WordRow";
 import Keyboard from "./Keyboard";
 import { useAppState } from "@/lib/useAppState";
