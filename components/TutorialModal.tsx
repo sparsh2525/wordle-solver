@@ -72,7 +72,7 @@ const Dialog = ({ children, close }: { children: React.ReactNode, close: () => v
             exit={{ scale: 0 }}
             transition={{ duration: 0.3 }}
             onClick={(e) => e.stopPropagation()}
-            className="bg-neutral-800 relative p-7 pb-3 rounded-xl flex flex-col gap-5 h-fit w-[_clamp(370px,55vw,600px)] text-slate-200 border-2 border-slate-500">
+            className="bg-neutral-800 relative p-7 pb-3 rounded-xl flex flex-col gap-5 h-fit w-[_clamp(370px,55vw,600px)] text-slate-200 border-2 border-slate-500 z-20">
             <div
                 className="absolute top-1.5 right-1 p-2 cursor-pointer"
                 onClick={close}
