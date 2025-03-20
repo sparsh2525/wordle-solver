@@ -3,12 +3,10 @@ import KeyboardKey from './KeyboardKey';
 import { keyboard, LetterState } from '@/lib/constants';
 
 interface KeyboardProps {
-    letters: { [key: string]: LetterState };
     onClickHandler?: (letter: string) => void;
-    onLongPressHandler?: (letter: string) => void;
 }
 
-const Keyboard = ({ letters, onClickHandler, onLongPressHandler }: KeyboardProps) => {
+const Keyboard = ({ onClickHandler }: KeyboardProps) => {
     return (
         <div className="flex flex-col mt-auto">
             {keyboard.map(row =>
@@ -16,9 +14,8 @@ const Keyboard = ({ letters, onClickHandler, onLongPressHandler }: KeyboardProps
                     {row.split(",").map((key) => {
                         return <KeyboardKey
                             key={key}
-                            letter={letters[key.toUpperCase()] ? letters[key.toUpperCase()] : key}
+                            keyCode={key.toUpperCase()}
                             onClickHandler={onClickHandler}
-                            onLongPressHandler={onLongPressHandler}
                         />;
                     })}
                 </div>

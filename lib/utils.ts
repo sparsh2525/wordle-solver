@@ -11,6 +11,7 @@ export const parsingFn = (
     inputLetter: LetterState,
     index: number
   ): boolean => {
+    if (inputLetter.value === "") return true;
     const guessLetter = guessWord[index];
     switch (inputLetter.status) {
       case "black":

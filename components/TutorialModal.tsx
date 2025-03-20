@@ -19,15 +19,17 @@ const TutorialModal = ({ handleClose }: { handleClose: () => void }) => {
                     </p>
                     <ol className="list-disc list-outside pl-4">
                         <li>
-                            Use the keyboard {TutorialKeys.map((key, i) => <KeyboardKey demo letter={key} key={i} />)} to type in your guessed word.
+                            Use the keyboard {'KEYS'.split('').map((key, i) => <KeyboardKey demo keyCode={key} key={i} />)} to type in your guessed word.
                         </li>
+                        {/* <li>
+                            Long tap a key <KeyboardKey demo keyCode='W' /> to change status into <KeyboardKey demo keyCode='W' /> if the word doesn&apos;t contain the letter.
+                        </li> */}
                         <li>
-                            Long tap a key <KeyboardKey demo letter={{ value: 'W', status: 'black' }} /> to change status into <KeyboardKey demo letter={{ value: 'W', status: 'grey' }} /> if the word doesn&apos;t contain the letter.
-                        </li>
-                        <li>
-                            <div className="inline-flex items-center">
-                                Use <StatusButton demo Icon={<SwitchIcon />} /> to change the status of a letter.
+                            Tap a box 
+                            <div className="inline-flex gap-2 items-center px-1">
+                                <LetterBox index={0} letter={{ value: 'W', status: 'black' }} demo disabled />
                             </div>
+                             to change the status of a letter.
                         </li>
                         <li>
                             Status switch

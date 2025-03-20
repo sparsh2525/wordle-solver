@@ -1,20 +1,20 @@
-import { RefObject } from "react";
 import LetterBox from "./LetterBox";
 import { LetterState } from "@/lib/constants";
-import StatusButton from "./StatusButton";
-import { SwitchIcon } from "@/icons/icons";
 
 interface WordRowProps {
     word: LetterState[];
-    handleInputChange?: (index: number, event: React.ChangeEvent<HTMLInputElement>) => void;
-    handleStatusChange?: (index: number) => void;
-    inputsRef?: RefObject<(HTMLInputElement | null)[]>;
+    // handleInputChange?: (index: number, event: React.ChangeEvent<HTMLInputElement>) => void;
+    handleStatusChange?: (letter: LetterState, i: number, j: number) => void;
+    // inputsRef?: RefObject<(HTMLInputElement | null)[]>;
     disabled?: boolean;
     demo?: boolean;
+    rowNumber?: number;
+    indexToAnimate?: number;
+    length?: number;
 }
 
 
-export default function WordRow({ word, handleInputChange, handleStatusChange, inputsRef, disabled = false, demo = false }: WordRowProps) {
+export default function WordRow({ word, handleStatusChange, disabled = false, demo = false, rowNumber = 0, length = 5, indexToAnimate }: WordRowProps) {
     return (
         <div className="flex justify-center items-center gap-2">
             {word.map((letter, index) => (
@@ -22,16 +22,16 @@ export default function WordRow({ word, handleInputChange, handleStatusChange, i
                     <LetterBox
                         index={index}
                         letter={letter}
-                        handleChange={handleInputChange}
-                        inputsRef={inputsRef}
-                        disabled={disabled || !!!handleInputChange}
+                        onClick={() => handleStatusChange && handleStatusChange(letter, rowNumber, index)}
+                        disabled={disabled}
                         demo={demo}
+                        animate={indexToAnimate !== undefined ? Math.floor(indexToAnimate / length) === rowNumber && indexToAnimate % length === index : false}
                     />
-                    {!disabled &&
+                    {/* {!disabled &&
                         <StatusButton
                             onClick={() => handleStatusChange && handleStatusChange(index)}
                             Icon={<SwitchIcon />}
-                        />}
+                        />} */}
                 </div>
             ))}
         </div>

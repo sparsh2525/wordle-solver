@@ -6,6 +6,7 @@ import Keyboard from "./Keyboard";
 import { useAppState } from "@/lib/useAppState";
 import TutorialModal from "./TutorialModal";
 import Heading from "./Heading";
+import Suggestions from "./Suggestions";
 
 interface MasterProps {
     length?: number;
@@ -14,40 +15,36 @@ interface MasterProps {
 
 export default function Master({ wordList, length = 5 }: MasterProps) {
 
-    const { guesses,
+    const {
+        suggestions,
+        words,
         handleKeyPress,
         handleStatusChange,
-        letters,
-        wordState,
-        handleLongKeyPress,
         closeTutorial,
         tutorialOpen,
-        openTutorial } = useAppState(wordList, length);
+        openTutorial,
+        indexToAnimate } = useAppState(wordList, length);
 
     return (
         <div className="flex justify-start pb-3 pt-7 gap-5 items-center flex-col h-dvh">
             <TutorialModal closeTutorial={closeTutorial} openTutorial={openTutorial} tutorialOpen={tutorialOpen} />
-            <Heading/>
-            <WordRow word={wordState} handleStatusChange={handleStatusChange} />
+            <Heading />
+            <div className="flex flex-col gap-2 overflow-y-auto no-scrollbar">
+                {words.map((word, index) => (
+                    <WordRow 
+                    word={word} 
+                    handleStatusChange={handleStatusChange} 
+                    rowNumber={index} 
+                    indexToAnimate={indexToAnimate - 1}
+                    length={length}
+                    key = {index}  />
+                ))}
+            </div>
+
             {/* <Divider /> */}
-
-            {!guesses.length ?
-                <h5 className="text-1xl text-slate-200 italic text-center">No word exists?</h5>
-                :
-                guesses.length <= RenderLimit ?
-                    <>
-                        <div className="flex flex-col gap-2 max-h-[40vh] overflow-y-auto no-scrollbar">
-                            {guesses.map((guess, index) => (
-                                <WordRow key={index} word={guess} disabled />
-                            ))}
-                        </div>
-
-                        <h5 className="text-1xl text-slate-200 italic text-center">{guesses.length} guesses (scroll if needed)</h5>
-                    </>
-                    :
-                    <h5 className="text-1xl text-slate-200 italic text-center">Too many guesses to show ({guesses.length}), try narrowing it down.</h5>
-            }
-            <Keyboard onClickHandler={handleKeyPress} onLongPressHandler={handleLongKeyPress} letters={letters} />
+            <Suggestions suggestions={suggestions} wordListLength={wordList.length} />
+            
+            <Keyboard onClickHandler={handleKeyPress} />
         </div>
     );
 }

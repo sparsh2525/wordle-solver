@@ -1,96 +1,123 @@
 import { useEffect, useState } from "react";
-import { initState, LetterState, status } from "./constants";
+import { buildInitState, LetterState, status } from "./constants";
 import { parsingFn, range } from "./utils";
 
-export const useAppState = (wordList: string[], length = 5) => {
-  const [letters, setLetters] = useState<{ [key: string]: LetterState }>(initState);
-  const [word, setWord] = useState<string[]>([]);
-  const [guesses, setGuesses] = useState<LetterState[][]>([]);
+export const useAppState = (wordList: string[], length = 5, guesses = 5) => {
+  const [words, setWords] = useState<LetterState[][]>(
+    buildInitState(length, guesses)
+  );
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [index, setIndex] = useState<number>(0);
   const [tutorialOpen, setTutorialOpen] = useState(true);
 
   useEffect(() => {
     createGuesses();
-  }, [letters, word]);
+  }, [words]);
 
   const handleKeyPress = (key: string) => {
     if (key.split(":")[0] === "BUTTON") {
       switch (key.split(":")[1]) {
         case "RESET":
-          setLetters(initState);
-          setWord([]);
+          resetHandler();
           break;
         case "BACK":
-          word[word.length - 1] && setLetterState(word[word.length - 1], "black");
-          setWord(word.slice(0, word.length - 1));
+          backspaceHandler();
           break;
       }
       navigator.vibrate?.(100);
-    } else if (word.length < length) {
-      setWord([...word, key]);
+    } else {
+      keyHandler(key);
     }
   };
 
-  const handleLongKeyPress = (key: string) => {
-    if (!letters[key]) return;
-    navigator.vibrate?.(100);
-    setLetterState(key, letters[key].status === "grey" ? "black" : "grey");
+  const backspaceHandler = () => {
+    if (index === 0) return;
+    setIndex(index - 1);
+    setWordsState({ value: "", status: "black" }, index - 1);
   };
 
-  const wordState = range(0, 5).map((i) => {
-    return word[i] && letters[word[i]]
-      ? letters[word[i]]
-      : { value: "", status: "black" };
-  }) as LetterState[];
+  const resetHandler = () => {
+    setIndex(0);
+    setWords(buildInitState(length, guesses));
+  };
 
-  const handleStatusChange = (index: number) => {
-    if (!word[index]) return;
-    navigator.vibrate?.(100);
+  const keyHandler = (key: string) => {
+    if (index === length * guesses) return;
+    setIndex(index + 1);
+    setWordsState({ value: key, status: "black" }, index);
+  };
+
+  const handleLongKeyPress = (key: string) => {
+    // if (!letters[key]) return;
+    // navigator.vibrate?.(100);
+    // setLetterState(key, letters[key].status === "grey" ? "black" : "grey");
+  };
+
+  const handleStatusChange = (letter: LetterState, i: number, j: number) => {
+    if(letter.value === "") return;
+    const index = i * length + j;
     const nextStatus =
-      status[(status.indexOf(letters[word[index]].status) + 1) % status.length];
-    setLetterState(word[index], nextStatus);
+      status[(status.indexOf(letter.status) + 1) % status.length];
+    setWordsState({ ...letter, status: nextStatus }, index);
   };
 
   const createGuesses = () => {
-    setGuesses([]);
-    const newGuesses = wordList.filter((guessWord) =>
-      Object.values(letters).every((letter) => {
-        const index = word.indexOf(letter.value);
-        return parsingFn(guessWord.toUpperCase(), letter, index);
-      })
+    // setSuggestions([]);
+    const newSuggestions = wordList.filter((guessWord) =>
+      words
+        .flatMap((a) => a)
+        .every((letter, i) => {
+          const index = i % length;
+          return parsingFn(guessWord.toUpperCase(), letter, index);
+        })
     );
-    const finalGuessesArray = newGuesses.map((guessWord) =>
-      guessWord
-        .toUpperCase()
-        .split("")
-        .map((letter, i) =>
-          letters[letter].status === "green" && word[i] !== letter
-            ? ({ value: letter, status: "yellow" } as LetterState)
-            : letters[letter]
-        )
-    );
-    setGuesses(finalGuessesArray);
+    // const finalGuessesArray = newGuesses.map((guessWord) =>
+    //   guessWord
+    //     .toUpperCase()
+    //     .split("")
+    //     .map((letter, i) =>
+    //       letters[letter].status === "green" && word[i] !== letter
+    //         ? ({ value: letter, status: "yellow" } as LetterState)
+    //         : letters[letter]
+    //     )
+    // );
+    setSuggestions(newSuggestions);
   };
 
-  const setLetterState = (letter: string, status: LetterState["status"]) => {
-    setLetters((prev) => ({
-      ...prev,
-      [letter]: { value: letter, status },
-    }));
+  const setWordsState = (
+    { value, status }: LetterState,
+    indexToUpdate: number
+  ) => {
+    const [row, col] = [Math.floor(indexToUpdate / length), indexToUpdate % length];
+    const newWords = words.map((word, i) => {
+      if (i === row) {
+        return word.map((l, j) => {
+          if (j === col) {
+            return { value, status };
+          }
+          return l;
+        });
+      }
+      return word;
+    });
+    setWords(newWords);
   };
 
-  const closeTutorial = () => { setTutorialOpen(false)};
+  const closeTutorial = () => {
+    setTutorialOpen(false);
+  };
 
   const openTutorial = () => setTutorialOpen(true);
 
   return {
-    letters,
-    wordState,
-    guesses,
+    words,
+    suggestions,
     handleKeyPress,
     handleStatusChange,
-    handleLongKeyPress,
+    // handleLongKeyPress,
     tutorialOpen,
     closeTutorial,
     openTutorial,
+    indexToAnimate: index,
   };
 };

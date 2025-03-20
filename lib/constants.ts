@@ -13,20 +13,12 @@ export const keyboard = [
   "BUTTON:RESET,z,x,c,v,b,n,m,BUTTON:BACK",
 ];
 
-export const initState = keyboard
-  .flatMap((row) =>
-    row.split(",").map((key) => {
-      if (!key.includes("BUTTON"))
-        return {
-          [key.toUpperCase()]: {
-            value: key.toUpperCase(),
-            status: "black",
-          } as LetterState,
-        };
+export const buildInitState = (length: number, guesses: number) =>
+  Array.from({ length: guesses }, () =>
+    Array.from({ length }, () => {
+      return { value: "", status: "black" } as LetterState;
     })
-  )
-  .filter((key) => key !== undefined)
-  .reduce((acc, curr) => ({ ...acc, ...curr }), {});
+  );
 
 export interface LetterState {
   value: string;
@@ -51,8 +43,13 @@ export const WordleHeading: LetterState[] = [
   { value: "E", status: "black" },
 ];
 
-export const TutorialKeys = [{value:'K',status:'black'},{value:'E',status:'black'},{value:'Y',status:'black'},{value:'S',status:'black'}] as LetterState[];
+export const TutorialKeys = [
+  { value: "K", status: "black" },
+  { value: "E", status: "black" },
+  { value: "Y", status: "black" },
+  { value: "S", status: "black" },
+] as LetterState[];
 
-export const ProfileLink = 'https://sparshgupta.vercel.app'
+export const ProfileLink = "https://sparshgupta.vercel.app";
 
-export const GithubLink = 'https://github.com/sparsh2525/wordle-solver'
+export const GithubLink = "https://github.com/sparsh2525/wordle-solver";
