@@ -62,7 +62,6 @@ export const useAppState = (wordList: string[], length = 5, guesses = 5) => {
   };
 
   const createGuesses = () => {
-    // setSuggestions([]);
     const newSuggestions = wordList.filter((guessWord) =>
       words
         .flatMap((a) => a)
@@ -71,16 +70,6 @@ export const useAppState = (wordList: string[], length = 5, guesses = 5) => {
           return parsingFn(guessWord.toUpperCase(), letter, index);
         })
     );
-    // const finalGuessesArray = newGuesses.map((guessWord) =>
-    //   guessWord
-    //     .toUpperCase()
-    //     .split("")
-    //     .map((letter, i) =>
-    //       letters[letter].status === "green" && word[i] !== letter
-    //         ? ({ value: letter, status: "yellow" } as LetterState)
-    //         : letters[letter]
-    //     )
-    // );
     setSuggestions(newSuggestions);
   };
 
@@ -114,10 +103,8 @@ export const useAppState = (wordList: string[], length = 5, guesses = 5) => {
     suggestions,
     handleKeyPress,
     handleStatusChange,
-    // handleLongKeyPress,
     tutorialOpen,
     closeTutorial,
     openTutorial,
-    indexToAnimate: index,
   };
 };

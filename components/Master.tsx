@@ -20,21 +20,18 @@ export default function Master({ wordList, length = 5 }: MasterProps) {
         handleStatusChange,
         closeTutorial,
         tutorialOpen,
-        openTutorial,
-        indexToAnimate } = useAppState(wordList, length);
+        openTutorial } = useAppState(wordList, length);
 
     return (
-        <div className="flex justify-start pb-3 pt-7 gap-5 items-center flex-col h-dvh">
+        <div className="flex justify-start pb-3 pt-6 gap-3 items-center flex-col h-dvh">
             <TutorialModal closeTutorial={closeTutorial} openTutorial={openTutorial} tutorialOpen={tutorialOpen} />
             <Heading />
-            <div className="flex flex-col gap-2 overflow-y-auto no-scrollbar">
+            <div className="flex flex-col gap-2 overflow-y-auto no-scrollbar p-1">
                 {words.map((word, index) => (
                     <WordRow 
                     word={word} 
                     handleStatusChange={handleStatusChange} 
-                    rowNumber={index} 
-                    indexToAnimate={indexToAnimate - 1}
-                    length={length}
+                    rowNumber={index}
                     key = {index}  />
                 ))}
             </div>

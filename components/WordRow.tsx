@@ -9,12 +9,10 @@ interface WordRowProps {
     disabled?: boolean;
     demo?: boolean;
     rowNumber?: number;
-    indexToAnimate?: number;
-    length?: number;
 }
 
 
-export default function WordRow({ word, handleStatusChange, disabled = false, demo = false, rowNumber = 0, length = 5, indexToAnimate }: WordRowProps) {
+export default function WordRow({ word, handleStatusChange, disabled = false, demo = false, rowNumber = 0 }: WordRowProps) {
     return (
         <div className="flex justify-center items-center gap-2">
             {word.map((letter, index) => (
@@ -25,7 +23,6 @@ export default function WordRow({ word, handleStatusChange, disabled = false, de
                         onClick={() => handleStatusChange && handleStatusChange(letter, rowNumber, index)}
                         disabled={disabled}
                         demo={demo}
-                        animate={indexToAnimate !== undefined ? Math.floor(indexToAnimate / length) === rowNumber && indexToAnimate % length === index : false}
                     />
                     {/* {!disabled &&
                         <StatusButton

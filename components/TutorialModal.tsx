@@ -17,7 +17,7 @@ const TutorialModal = ({ handleClose }: { handleClose: () => void }) => {
                     <p>
                         This app helps you solve Wordle puzzles by suggesting possible words based on your inputs.
                     </p>
-                    <ol className="list-disc list-outside pl-4">
+                    <ol className="list-disc list-outside pl-4 space-y-3">
                         <li>
                             Use the keyboard {'KEYS'.split('').map((key, i) => <KeyboardKey demo keyCode={key} key={i} />)} to type in your guessed word.
                         </li>
@@ -31,7 +31,7 @@ const TutorialModal = ({ handleClose }: { handleClose: () => void }) => {
                             </div>
                              to change the status of a letter.
                         </li>
-                        <li>
+                        <li className="leading-8">
                             Status switch
                             <div className="inline-flex gap-2 items-center px-1">
                                 {status.map((status, i) => <LetterBox index={0} letter={{ value: 'W', status }} key={i} demo disabled />)}

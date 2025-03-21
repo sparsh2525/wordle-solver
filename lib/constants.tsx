@@ -1,9 +1,8 @@
+import { DeleteIcon, SwitchIcon } from "@/icons/icons";
+
 export const WordLength = 5;
 
 export const RenderLimit = 30;
-
-export const WordsURL =
-  "https://cheaderthecoder.github.io/5-Letter-words/words.json";
 
 export const status = ["green", "yellow", "grey", "black"] as const;
 
@@ -34,6 +33,12 @@ export const ColourMapping: Record<LetterState["status"], string> = {
   black: "bg-gray-600",
 };
 
+export const ButtonMapping: { [key: string]: React.ReactNode } =
+  {
+    BACK: <DeleteIcon/>,
+    RESET: <SwitchIcon/>
+  };
+
 export const WordleHeading: LetterState[] = [
   { value: "W", status: "green" },
   { value: "O", status: "black" },
@@ -43,13 +48,9 @@ export const WordleHeading: LetterState[] = [
   { value: "E", status: "black" },
 ];
 
-export const TutorialKeys = [
-  { value: "K", status: "black" },
-  { value: "E", status: "black" },
-  { value: "Y", status: "black" },
-  { value: "S", status: "black" },
-] as LetterState[];
-
 export const ProfileLink = "https://sparshgupta.vercel.app";
 
 export const GithubLink = "https://github.com/sparsh2525/wordle-solver";
+
+export const WordsURL = "https://cheaderthecoder.github.io/5-Letter-words/words.json";
+
