@@ -27,7 +27,7 @@ export default function LetterBox({ letter, onClick, disabled, demo }: LetterBox
             }
             onClick={() => onClick?.()}
         >
-            <p className='mb-0.5'>{letter.value}</p>
+            <span>{letter.value}</span>
         </motion.div>
     );
 };
